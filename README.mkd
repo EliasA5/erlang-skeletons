@@ -4,7 +4,7 @@ ABOUT
 Erlang generic templates for vim
 
 INTRODUCTION
-============
+------------
 
 This plugin provides a quick access to Erlang templates, such as gen_server,
 get_event etc.
@@ -17,7 +17,7 @@ You can customize this suite to your needs.
 
 
 COMMANDS
-========
+--------
 
 `:ErlServer`              Loads gen_server template into current buffer.
 
@@ -48,12 +48,14 @@ VARIABLES
 
 Variables used are:
 
-`$basename`              Current buffer's filename without extension.
-                         Defaults to 'untitled' for an unnamed buffer.
+`$basename`              Current buffer's filename without extension. Defaults to 'untitled' for an unnamed buffer.
 
 `$author`                Defaults to `whoami` if undefined
+
 `$company`               Defaults to $author if undefined
+
 `$fulldate`              Defaults to python's datetime.now()
+
 `$year`                  Defaults to python's datetime.now().year
 
 
@@ -63,20 +65,22 @@ CONFIGURATION
 Following variables can be overrided via .vimrc settings:
 
 `erl_author`              default: `whoami`
+
 `erl_company`             default: g:erl_author
-`erl_replace_buffer`      default: 0
-                          If "1", will erase current buffer if
-                          a template insertion command is used.
-`erl_tpl_dir`             Plugin directory concatenated with "/templates".
-                          Allows you to use your own template directory.
-                          Note, that commands will raise errors, if hardcoded
-                          template files don't exist there.
+
+`erl_replace_buffer`      default: 0. If "1", will erase current buffer if a template insertion command is used.
+
+`erl_tpl_dir`             Plugin directory concatenated with "/templates". Allows you to use your own template directory. Note, that commands will raise errors, if hardcoded template files don't exist there.
+
 
 Example .vimrc entries:
 
     let g:erl_author="Herp Derp"
+
     let g:erl_company="Me Gusta Inc"
+
     let g:erl_replace_buffer=1
+
     let g:erl_tpl_dir="/home/herp/erlang/templates"
 
 
