@@ -40,7 +40,7 @@ TEMPLATES
 =========
 
 Templates are plain text files containing special placeholders that start
-with dollar sings.
+with dollar sign.
 
 Example:
 
@@ -72,9 +72,9 @@ Following variables can be overrided via .vimrc settings:
 
 `erl_company`             default: g:erl_author
 
-`erl_replace_buffer`      default: 0. If "1", will erase current buffer if a template insertion command is used.
+`erl_replace_buffer`      default: 0. If "1", will erase current buffer after a template insertion command is triggered.
 
-`erl_tpl_dir`             Plugin directory concatenated with "/templates". Allows you to use your own template directory. Note, that commands will raise errors, if hardcoded template files don't exist there.
+`erl_tpl_dir`             default: Plugin directory concatenated with "/templates". Allows you to use your own template directory. Note, that commands will raise errors, if hardcoded template files doesn't exist there.
 
 
 Example .vimrc entries:
@@ -91,6 +91,6 @@ Example .vimrc entries:
 CONTRIBUTE
 ==========
 
-Feel free to suggest any improvents or extensions at project's github:
+Feel free to suggest any improvements or extensions at project's github:
 
     http://github.com/aerosol/vim-erlang-skeletons
