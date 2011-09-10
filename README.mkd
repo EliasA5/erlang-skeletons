@@ -19,6 +19,11 @@ This plugin works well with pathogen (https://github.com/tpope/vim-pathogen).
 Make sure you `call #pathogen:helptags()` to enjoy vim help pages for this
 plugin.
 
+ALTERNATE VERSION (VimL)
+------------------------
+
+If you don't like the idea of having Python installed, there's a pure VimL 
+fork here: https://github.com/jimenezrick/vimerl/tree/master/plugin 
 
 COMMANDS
 --------
