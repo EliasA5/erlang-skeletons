@@ -61,5 +61,6 @@ command! -nargs=0 ErlFsm         call LoadTemplate("gen_fsm")
 command! -nargs=0 ErlSupervisor  call LoadTemplate("supervisor")
 command! -nargs=0 ErlEvent       call LoadTemplate("gen_event")
 command! -nargs=0 ErlApplication call LoadTemplate("application")
+command! -nargs=0 ErlCTSuite     call LoadTemplate("commontest")
 command! -nargs=1 ErlTemplate    call LoadTemplate(<args>)
 
