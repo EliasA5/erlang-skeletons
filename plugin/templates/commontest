@@ -29,9 +29,6 @@
 -include_lib("proper/include/proper.hrl").
 -include_lib("common_test/include/ct.hrl").
 
-%% TODO: The record defs need moving somewhere more usual
--include_lib("ubic_provisions/include/ubic_provisions.hrl").
-
 -define(PROPTEST(M,F), true = proper:quickcheck(M:F())).
 
 all() ->
