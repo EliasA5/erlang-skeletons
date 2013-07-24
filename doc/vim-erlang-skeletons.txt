@@ -27,6 +27,8 @@ COMMANDS                                        *ErlangSkeletonsCommands*
                                                 *ErlEvent*
 :ErlEvent               Loads gen_event template into current buffer.
                                                 *ErlApplication*
+:ErlCTSuite             Loads commontest template into current buffer.
+                                                *ErlCTSuite*
 :ErlApplication         Loads application template into current buffer.
                                                 *ErlTemplate*
 :ErlTemplate [arg]      Loads [arg] template into current buffer.
