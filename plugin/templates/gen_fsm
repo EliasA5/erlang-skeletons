@@ -41,7 +41,7 @@
 %% @end
 %%--------------------------------------------------------------------
 start_link() ->
-        gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], []).
+    gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 %%%===================================================================
 %%% gen_fsm callbacks
@@ -61,7 +61,7 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
-        {ok, state_name, #state{}}.
+    {ok, state_name, #state{}}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -79,7 +79,7 @@ init([]) ->
 %% @end
 %%--------------------------------------------------------------------
 state_name(_Event, State) ->
-        {next_state, state_name, State}.
+    {next_state, state_name, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -100,8 +100,8 @@ state_name(_Event, State) ->
 %% @end
 %%--------------------------------------------------------------------
 state_name(_Event, _From, State) ->
-        Reply = ok,
-        {reply, Reply, state_name, State}.
+    Reply = ok,
+    {reply, Reply, state_name, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -117,7 +117,7 @@ state_name(_Event, _From, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_event(_Event, StateName, State) ->
-        {next_state, StateName, State}.
+    {next_state, StateName, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -136,8 +136,8 @@ handle_event(_Event, StateName, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_sync_event(_Event, _From, StateName, State) ->
-        Reply = ok,
-        {reply, Reply, StateName, State}.
+    Reply = ok,
+    {reply, Reply, StateName, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -153,7 +153,7 @@ handle_sync_event(_Event, _From, StateName, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_info(_Info, StateName, State) ->
-        {next_state, StateName, State}.
+    {next_state, StateName, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -167,7 +167,7 @@ handle_info(_Info, StateName, State) ->
 %% @end
 %%--------------------------------------------------------------------
 terminate(_Reason, _StateName, _State) ->
-        ok.
+    ok.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -179,7 +179,7 @@ terminate(_Reason, _StateName, _State) ->
 %% @end
 %%--------------------------------------------------------------------
 code_change(_OldVsn, StateName, State, _Extra) ->
-        {ok, StateName, State}.
+    {ok, StateName, State}.
 
 %%%===================================================================
 %%% Internal functions
