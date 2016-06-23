@@ -58,6 +58,7 @@ endfunction
 
 command! -nargs=0 ErlServer      call LoadTemplate("gen_server")
 command! -nargs=0 ErlFsm         call LoadTemplate("gen_fsm")
+command! -nargs=0 ErlStatem      call LoadTemplate("gen_statem")
 command! -nargs=0 ErlSupervisor  call LoadTemplate("supervisor")
 command! -nargs=0 ErlEvent       call LoadTemplate("gen_event")
 command! -nargs=0 ErlApplication call LoadTemplate("application")
