@@ -22,6 +22,8 @@ COMMANDS                                        *ErlangSkeletonsCommands*
 :ErlServer              Loads gen_server template into current buffer.
                                                 *ErlFsm*
 :ErlFsm                 Loads gen_fsm template into current buffer.
+                                                *ErlStatem*
+:ErlStatem              Loads gen_statem template into current buffer.
                                                 *ErlSupervisor*
 :ErlSupervisor          Loads supervisor template into current buffer.
                                                 *ErlEvent*
