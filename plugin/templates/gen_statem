@@ -44,7 +44,7 @@ start_link() ->
     gen_statem:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 %%%===================================================================
-%%% gen_fsm callbacks
+%%% gen_statem callbacks
 %%%===================================================================
 
 %%--------------------------------------------------------------------
@@ -73,7 +73,7 @@ init([]) ->
 %% @spec format_status(Opt, [PDict, StateName, State]) -> term()
 %% @end
 %%--------------------------------------------------------------------
-format_status(_Opt, [_PDict, _State, _Data]) ->
+format_status(_Opt, [_PDict, _StateName, _State]) ->
     Status = some_term,
     Status.
 
@@ -87,16 +87,22 @@ format_status(_Opt, [_PDict, _State, _Data]) ->
 %%
 %% @spec state_name(Event, From, State) ->
 %%                   {next_state, NextStateName, NextState} |
-%%                   {next_state, NextStateName, NextState, Timeout} |
-%%                   {reply, Reply, NextStateName, NextState} |
-%%                   {reply, Reply, NextStateName, NextState, Timeout} |
+%%                   {next_state, NextStateName, NextState, Actions} |
 %%                   {stop, Reason, NewState} |
-%%                   {stop, Reason, Reply, NewState}
+%%    				 stop |
+%%                   {stop, Reason :: term()} |
+%%                   {stop, Reason :: term(), NewData :: data()} |
+%%                   {stop_and_reply, Reason, Replies} |
+%%                   {stop_and_reply, Reason, Replies, NewState} |
+%%                   {keep_state, NewData :: data()} |
+%%                   {keep_state, NewState, Actions} |
+%%                   keep_state_and_data |
+%%                   {keep_state_and_data, Actions}
 %% @end
 %%--------------------------------------------------------------------
 state_name(_EventType, _EventContent, State) ->
-    Reply = ok,
-    {reply, Reply, state_name, State}.
+    NextStateName = next_state,
+    {next_state, NextStateName, State}.
 
 %%--------------------------------------------------------------------
 %% @private
