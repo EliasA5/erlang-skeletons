@@ -30,6 +30,7 @@ function! LoadTemplate(tpl_file)
     execute s:pyfile_command
 endfunction
 
+command! -nargs=0 EQCStatem      call LoadTemplate("eqc_statem")
 command! -nargs=0 ErlServer      call LoadTemplate("gen_server")
 command! -nargs=0 ErlFsm         call LoadTemplate("gen_fsm")
 command! -nargs=0 ErlStatem      call LoadTemplate("gen_statem")
