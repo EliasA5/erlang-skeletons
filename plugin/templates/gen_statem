@@ -50,17 +50,32 @@ start_link() ->
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
+%% Define the callback_mode() for this callback module.
+%%
+%% @spec callback_mode() -> state_functions |
+%%                          handle_event_function |
+%%                          [state_functions, state_enter] |
+%%                          [handle_event_function, state_enter]
+%% @end
+%%--------------------------------------------------------------------
+callback_mode() ->
+    state_functions.
+
+%%--------------------------------------------------------------------
+%% @private
+%% @doc
 %% Whenever a gen_statem is started using gen_statem:start/[3,4] or
 %% gen_statem:start_link/[3,4], this function is called by the new
 %% process to initialize.
 %%
-%% @spec init(Args) -> {CallbackMode, StateName, State} |
-%%                     {CallbackMode, StateName, State, Actions} |
+%% @spec init(Args) -> {ok, State, Data} |
+%%                     {ok, State, Data, Actions} |
 %%                     ignore |
-%%                     {stop, StopReason}
+%%                     {stop, Reason}
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
+    process_flag(trap_exit, true),
     {ok, state_name, #state{}}.
 
 %%--------------------------------------------------------------------
@@ -70,12 +85,11 @@ init([]) ->
 %% (2) when gen_statem terminates abnormally.
 %% This callback is optional.
 %%
-%% @spec format_status(Opt, [PDict, StateName, State]) -> term()
+%% @spec format_status(Opt, [PDict, State, Data]) -> Status
 %% @end
 %%--------------------------------------------------------------------
-format_status(_Opt, [_PDict, _StateName, _State]) ->
-    Status = some_term,
-    Status.
+format_status(_Opt, [_PDict, State, Data]) ->
+    [{data, [{"State", {State, Data}}]}].
 
 %%--------------------------------------------------------------------
 %% @private
@@ -85,24 +99,26 @@ format_status(_Opt, [_PDict, _StateName, _State]) ->
 %% functions is called when gen_statem receives and event from
 %% call/2, cast/2, or as a normal process message.
 %%
-%% @spec state_name(Event, From, State) ->
-%%                   {next_state, NextStateName, NextState} |
-%%                   {next_state, NextStateName, NextState, Actions} |
-%%                   {stop, Reason, NewState} |
-%%    				 stop |
-%%                   {stop, Reason :: term()} |
-%%                   {stop, Reason :: term(), NewData :: data()} |
-%%                   {stop_and_reply, Reason, Replies} |
-%%                   {stop_and_reply, Reason, Replies, NewState} |
-%%                   {keep_state, NewData :: data()} |
-%%                   {keep_state, NewState, Actions} |
+%% @spec state_name(Event, OldState, Data) ->
+%%                   {next_state, NextState, NewData} |
+%%                   {next_state, NextState, NewData, Actions} |
+%%                   {keep_state, NewData} |
+%%                   {keep_state, NewData, Actions} |
 %%                   keep_state_and_data |
-%%                   {keep_state_and_data, Actions}
+%%                   {keep_state_and_data, Actions} |
+%%                   {repeat_state, NewData} |
+%%                   {repeat_state, NewData, Actions} |
+%%                   repeat_state_and_data |
+%%                   {repeat_state_and_data, Actions} |
+%%                   stop |
+%%                   {stop, Reason} |
+%%                   {stop, Reason, NewData} |
+%%                   {stop_and_reply, Reason, Replies} |
+%%                   {stop_and_reply, Reason, Replies, NewData}
 %% @end
 %%--------------------------------------------------------------------
-state_name(_EventType, _EventContent, State) ->
-    NextStateName = next_state,
-    {next_state, NextStateName, State}.
+state_name({call, Caller}, _Msg, Data) ->
+    {next_state, state_name, Data, [{reply, Caller, ok}]}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -113,36 +129,38 @@ state_name(_EventType, _EventContent, State) ->
 %% process message, this function is called.
 %%
 %% @spec handle_event(Event, StateName, State) ->
-%%                   {next_state, NextStateName, NextState} |
-%%                   {next_state, NextStateName, NextState, Actions} |
-%%                   {stop, Reason, NewState} |
-%%    				 stop |
-%%                   {stop, Reason :: term()} |
-%%                   {stop, Reason :: term(), NewData :: data()} |
-%%                   {stop_and_reply, Reason, Replies} |
-%%                   {stop_and_reply, Reason, Replies, NewState} |
-%%                   {keep_state, NewData :: data()} |
-%%                   {keep_state, NewState, Actions} |
+%%                   {next_state, NextState, NewData} |
+%%                   {next_state, NextState, NewData, Actions} |
+%%                   {keep_state, NewData} |
+%%                   {keep_state, NewData, Actions} |
 %%                   keep_state_and_data |
-%%                   {keep_state_and_data, Actions}
+%%                   {keep_state_and_data, Actions} |
+%%                   {repeat_state, NewData} |
+%%                   {repeat_state, NewData, Actions} |
+%%                   repeat_state_and_data |
+%%                   {repeat_state_and_data, Actions} |
+%%                   stop |
+%%                   {stop, Reason} |
+%%                   {stop, Reason, NewData} |
+%%                   {stop_and_reply, Reason, Replies} |
+%%                   {stop_and_reply, Reason, Replies, NewData}
 %% @end
 %%--------------------------------------------------------------------
-handle_event(_EventType, _EventContent, _StateName, State) ->
-    NextStateName = the_next_state_name,
-    {next_state, NextStateName, State}.
+handle_event({call, From}, _Msg, State, Data) ->
+    {next_state, State, Data, [{reply, From, ok}]}.
 
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
 %% This function is called by a gen_statem when it is about to
 %% terminate. It should be the opposite of Module:init/1 and do any
-%% necessary cleaning up. When it returns, the gen_statem terminates with
-%% Reason. The return value is ignored.
+%% necessary cleaning up. When it returns, the gen_statem terminates
+%% with Reason. The return value is ignored.
 %%
-%% @spec terminate(Reason, StateName, State) -> void()
+%% @spec terminate(Reason, State, Data) -> Ignored
 %% @end
 %%--------------------------------------------------------------------
-terminate(_Reason, _StateName, _State) ->
+terminate(_Reason, _State, _Data) ->
     ok.
 
 %%--------------------------------------------------------------------
@@ -150,12 +168,13 @@ terminate(_Reason, _StateName, _State) ->
 %% @doc
 %% Convert process state when code is changed
 %%
-%% @spec code_change(OldVsn, StateName, State, Extra) ->
-%%                   {ok, StateName, NewState}
+%% @spec code_change(OldVsn, OldState, OldData, Extra) ->
+%%                   {ok, NewState, NewData} |
+%%                   Reason
 %% @end
 %%--------------------------------------------------------------------
-code_change(_OldVsn, StateName, State, _Extra) ->
-    {ok, StateName, State}.
+code_change(_OldVsn, State, Data, _Extra) ->
+    {ok, State, Data}.
 
 %%%===================================================================
 %%% Internal functions
