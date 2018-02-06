@@ -32,6 +32,8 @@ COMMANDS
 
 `:ErlFsm`                 Loads gen_fsm template into current buffer.
 
+`:ErlStatem`              Loads gen_statem template into current buffer.
+
 `:ErlSupervisor`          Loads supervisor template into current buffer.
 
 `:ErlEvent`               Loads gen_event template into current buffer.
