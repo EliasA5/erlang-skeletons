@@ -28,10 +28,12 @@ COMMANDS                                        *ErlangSkeletonsCommands*
 :ErlSupervisor          Loads supervisor template into current buffer.
                                                 *ErlEvent*
 :ErlEvent               Loads gen_event template into current buffer.
-                                                *ErlApplication*
-:ErlCTSuite             Loads commontest template into current buffer.
                                                 *ErlCTSuite*
+:ErlCTSuite             Loads commontest template into current buffer.
+                                                *ErlApplication*
 :ErlApplication         Loads application template into current buffer.
+                                                *ErlEscript*
+:ErlEscript             Loads escript template into current buffer.
                                                 *ErlTemplate*
 :ErlTemplate [arg]      Loads [arg] template into current buffer.
 
@@ -85,4 +87,4 @@ CONTRIBUTE                                    *ErlangSkeletonsContribute*
 
 Feel free to suggest any improvements or extensions at project's github:
 
-    http://github.com/vim-erlang/vim-erlang-skeletons
+    https://github.com/vim-erlang/vim-erlang-skeletons
