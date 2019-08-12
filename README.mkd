@@ -40,6 +40,8 @@ COMMANDS
 
 `:ErlApplication`         Loads application template into current buffer.
 
+`:ErlEscript`             Loads escript template into current buffer.
+
 `:ErlTemplate [arg]`      Loads [arg] template into current buffer.
 
 
@@ -100,4 +102,4 @@ CONTRIBUTE
 
 Feel free to suggest any improvements or extensions at project's github:
 
-    http://github.com/aerosol/vim-erlang-skeletons
+    https://github.com/vim-erlang/vim-erlang-skeletons
