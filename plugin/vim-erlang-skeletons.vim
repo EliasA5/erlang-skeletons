@@ -1,7 +1,9 @@
-if has('python')
-    let s:pyfile = 'pyfile '
+if has('pythonx')
+    let s:pyfile = 'pyxfile '
 elseif has('python3')
     let s:pyfile = 'py3file '
+elseif has('python')
+    let s:pyfile = 'pyfile '
 else
     echo "Error: Required vim compiled with +python or +python3"
     finish
