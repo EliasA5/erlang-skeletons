@@ -3,6 +3,8 @@ ABOUT
 
 Erlang generic templates for vim
 
+Based on [vim-erlang-skeletons](https://github.com/vim-erlang/vim-erlang-skeletons)
+
 INTRODUCTION
 ------------
 

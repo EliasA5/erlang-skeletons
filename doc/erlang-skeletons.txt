@@ -1,7 +1,7 @@
-*vim-erlang-skeletons*  Erlang generic templates for vim
+*erlang-skeletons*  Erlang generic templates for neovim
 
-Author:  Adam Rutkowski <hq@mtod.org>           *ErlangSkeletonsAuthor*
-License: Same terms as Vim itself (see |license|)
+Author:  Elias Assaf <elyas51000@gmail.com>     *ErlangSkeletonsAuthor*
+License: Same terms as Neovim itself (see |license|)
 
 
 INTRODUCTION                                    *ErlangSkeletons*
@@ -75,6 +75,13 @@ erl_tpl_dir             default: Plugin directory concatenated with "/templates"
                         Note, that commands will raise errors, if hardcoded
                         template files doesn't exist there.
 
+Example lua entries:
+
+    vim.g.erl_author = "Herp Derp"
+    vim.g.erl_company = "Me Gusta Inc"
+    vim.g.erl_replace_buffer = 1
+    vim.g.erl_tpl_dir = "/home/herp/erlang/templates"
+
 Example .vimrc entries:
 
     let g:erl_author="Herp Derp"
@@ -87,4 +94,4 @@ CONTRIBUTE                                    *ErlangSkeletonsContribute*
 
 Feel free to suggest any improvements or extensions at project's github:
 
-    https://github.com/vim-erlang/vim-erlang-skeletons
+    https://github.com/EliasA5/erlang-skeletons
