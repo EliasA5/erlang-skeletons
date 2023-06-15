@@ -13,19 +13,11 @@ get_event etc.
 
 The default templates are ripped out of emacs.
 
-This plugin requires your vim to be compiled with Python support.
-
 You can customize this suite to your needs.
 
 This plugin works well with pathogen (https://github.com/tpope/vim-pathogen).
 Make sure you `call #pathogen:helptags()` to enjoy vim help pages for this
 plugin.
-
-ALTERNATE VERSION (VimL)
-------------------------
-
-If you don't like the idea of having Python installed, there's a pure VimL 
-fork here: https://github.com/jimenezrick/vimerl/tree/master/plugin 
 
 COMMANDS
 --------
@@ -65,7 +57,7 @@ Variables used are:
 
 `$basename`              Current buffer's filename without extension. Defaults to 'untitled' for an unnamed buffer.
 
-`$author`                Defaults to `whoami` if undefined
+`$author`                Defaults to the logged in user real name or `whoami`
 
 `$company`               Defaults to $author if undefined
 
@@ -77,26 +69,25 @@ Variables used are:
 CONFIGURATION
 =============
 
-Following variables can be overrided via .vimrc settings:
+Following variables can be overrided via init.lua settings:
 
-`erl_author`              default: `whoami`
+`erl_author`              default:  logged in user real name or `whoami`
 
-`erl_company`             default: g:erl_author
+`erl_company`             default: vim.g.erl_author
 
 `erl_replace_buffer`      default: 0. If "1", will erase current buffer after a template insertion command is triggered.
 
 `erl_tpl_dir`             default: Plugin directory concatenated with "/templates". Allows you to use your own template directory. Note, that commands will raise errors, if hardcoded template files doesn't exist there.
 
+Example lua entries:
 
-Example .vimrc entries:
-
-    let g:erl_author="Herp Derp"
-
-    let g:erl_company="Me Gusta Inc"
-
-    let g:erl_replace_buffer=1
-
-    let g:erl_tpl_dir="/home/herp/erlang/templates"
+    vim.g.erl_author = "Herp Derp"
+    
+    vim.g.erl_company = "Me Gusta Inc"
+    
+    vim.g.erl_replace_buffer = 1
+    
+    vim.g.erl_tpl_dir = "/home/herp/erlang/templates"
 
 
 CONTRIBUTE
@@ -104,4 +95,4 @@ CONTRIBUTE
 
 Feel free to suggest any improvements or extensions at project's github:
 
-    https://github.com/vim-erlang/vim-erlang-skeletons
+https://github.com/EliasA5/erlang-skeletons
