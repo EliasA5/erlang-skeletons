@@ -5,7 +5,11 @@ U.isempty = function(s)
 end
 
 U.get_author_name = function()
-	return os.getenv("USER")
+	local name = vim.trim(vim.fn.system('getent passwd "$USER" | cut -d: -f5 | cut -d, -f1'))
+	if vim.v.shell_error ~= 0 then
+		name = os.getenv("USER") or "author"
+	end
+	return name
 end
 
 U.string_split_newlines = function(s)
