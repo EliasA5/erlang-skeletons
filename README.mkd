@@ -19,6 +19,20 @@ This plugin works well with pathogen (https://github.com/tpope/vim-pathogen).
 Make sure you `call #pathogen:helptags()` to enjoy vim help pages for this
 plugin.
 
+INSTALLATION
+------------
+[folke/lazy.nvim](https://github.com/folke/lazy.nvim):
+```lua
+{'EliasA5/erlang-skeletons', config = function() require('erlang-skeletons').setup() end},
+```
+[wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim):
+```lua
+use 'EliasA5/erlang-skeletons',
+```
+**Don't forget** to call `require('erlang-skeletons').setup()` to enable the plugin!
+
+
+
 COMMANDS
 --------
 
@@ -47,7 +61,7 @@ with dollar sign.
 
 Example:
 
-        -module($basename)
+`-module($basename)`
 
 
 VARIABLES
