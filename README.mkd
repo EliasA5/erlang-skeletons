@@ -38,17 +38,25 @@ COMMANDS
 
 `:ErlServer`              Loads gen_server template into current buffer.
 
+`:ErlWxObject`            Loads wx-object template into current buffer.
+
 `:ErlFsm`                 Loads gen_fsm template into current buffer.
 
-`:ErlStatem`              Loads gen_statem template into current buffer.
+`:ErlStatem`              Loads gen_statem/3 template into current buffer.
+
+`:ErlStatem4`             Loads gen_statem/4 template into current buffer.
 
 `:ErlSupervisor`          Loads supervisor template into current buffer.
+
+`:ErlSupervisorBridge`    Loads supervisor_bridge template into current buffer.
 
 `:ErlEvent`               Loads gen_event template into current buffer.
 
 `:ErlApplication`         Loads application template into current buffer.
 
 `:ErlEscript`             Loads escript template into current buffer.
+
+`:ErlCTSuite`             Loads commontest template into current buffer.
 
 `:ErlTemplate [arg]`      Loads [arg] template into current buffer.
 
