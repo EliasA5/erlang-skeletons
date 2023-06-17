@@ -12,6 +12,10 @@ U.get_author_name = function()
 	return name
 end
 
+U.get_author_user = function()
+	return "<" .. (os.getenv("USER") or "author") .. ">"
+end
+
 U.string_split_newlines = function(s)
 	local lines = {}
 	for ma in s:gmatch("([^\r\n]*)[\r\n]?") do

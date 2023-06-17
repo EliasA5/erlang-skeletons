@@ -1,10 +1,10 @@
 %%%-------------------------------------------------------------------
-%%% @author $author
+%%% @author $author $user
 %%% @copyright (C) $year, $company
 %%% @doc
 %%%
 %%% @end
-%%% Created : $fulldate
+%%% Created: $fulldate
 %%%-------------------------------------------------------------------
 -module($basename).
 
@@ -14,14 +14,8 @@
 -export([start_link/0]).
 
 %% gen_fsm callbacks
--export([init/1,
-         state_name/2,
-         state_name/3,
-         handle_event/3,
-         handle_sync_event/4,
-         handle_info/3,
-         terminate/3,
-         code_change/4]).
+-export([init/1, state_name/2, state_name/3, handle_event/3,
+	 handle_sync_event/4, handle_info/3, terminate/3, code_change/4]).
 
 -define(SERVER, ?MODULE).
 
@@ -61,6 +55,7 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
+    process_flag(trap_exit, true),
     {ok, state_name, #state{}}.
 
 %%--------------------------------------------------------------------
@@ -184,4 +179,3 @@ code_change(_OldVsn, StateName, State, _Extra) ->
 %%%===================================================================
 %%% Internal functions
 %%%===================================================================
-

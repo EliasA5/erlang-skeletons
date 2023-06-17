@@ -15,7 +15,7 @@
 
 %% gen_statem callbacks
 -export([callback_mode/0, init/1, terminate/3, code_change/4]).
--export([state_name/3]).
+-export([handle_event/4]).
 
 -define(SERVER, ?MODULE).
 
@@ -51,7 +51,7 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 -spec callback_mode() -> gen_statem:callback_mode_result().
-callback_mode() -> state_functions.
+callback_mode() -> handle_event_function.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -62,7 +62,7 @@ callback_mode() -> state_functions.
 %% @end
 %%--------------------------------------------------------------------
 -spec init(Args :: term()) ->
-	  gen_statem:init_result(atom()).
+	  gen_statem:init_result(term()).
 init([]) ->
     process_flag(trap_exit, true),
     {ok, state_name, #data{}}.
@@ -70,22 +70,21 @@ init([]) ->
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
-%% There should be one function like this for each state name.
-%% Whenever a gen_statem receives an event, the function 
-%% with the name of the current state (StateName) 
-%% is called to handle the event.
+%% This function is called for every event a gen_statem receives.
 %% @end
 %%--------------------------------------------------------------------
--spec state_name('enter',
-		 OldState :: atom(),
-		 Data :: term()) ->
-	  gen_statem:state_enter_result('state_name');
-		(gen_statem:event_type(),
-		 Msg :: term(),
-		 Data :: term()) ->
-	  gen_statem:event_handler_result(atom()).
-state_name({call,Caller}, _Msg, Data) ->
-    {next_state, state_name, Data, [{reply,Caller,ok}]}.
+-spec handle_event('enter',
+		   OldState :: term(),
+		   State :: term(),
+		   Data :: term()) ->
+	  gen_statem:state_enter_result(term());
+		  (gen_statem:event_type(),
+		   Msg :: term(),
+		   State :: term(),
+		   Data :: term()) ->
+	  gen_statem:event_handler_result(term()).
+handle_event({call,From}, _Msg, State, Data) ->
+    {next_state, State, Data, [{reply,From,ok}]}.
 
 %%--------------------------------------------------------------------
 %% @private

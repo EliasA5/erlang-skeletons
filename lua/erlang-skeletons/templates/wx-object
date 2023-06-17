@@ -8,16 +8,16 @@
 %%%-------------------------------------------------------------------
 -module($basename).
 
--behaviour(gen_server).
+-behaviour(wx_object).
+
+-include_lib("wx/include/wx.hrl").
 
 %% API
 -export([start_link/0]).
 
-%% gen_server callbacks
+%% wx_object callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-	 terminate/2, code_change/3, format_status/2]).
-
--define(SERVER, ?MODULE).
+	 handle_event/2, terminate/2, code_change/3]).
 
 -record(state, {}).
 
@@ -28,49 +28,61 @@
 %%--------------------------------------------------------------------
 %% @doc
 %% Starts the server
+%%
+%% @spec start_link() -> wxWindow()
 %% @end
 %%--------------------------------------------------------------------
--spec start_link() -> {ok, Pid :: pid()} |
-	  {error, Error :: {already_started, pid()}} |
-	  {error, Error :: term()} |
-	  ignore.
 start_link() ->
-    gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
+    wx_object:start_link(?MODULE, [], []).
 
 %%%===================================================================
-%%% gen_server callbacks
+%%% wx_object callbacks
 %%%===================================================================
 
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
 %% Initializes the server
+%%
+%% @spec init(Args) -> {wxWindow(), State} |
+%%                     {wxWindow(), State, Timeout} |
+%%                     ignore |
+%%                     {stop, Reason}
 %% @end
 %%--------------------------------------------------------------------
--spec init(Args :: term()) -> {ok, State :: term()} |
-	  {ok, State :: term(), Timeout :: timeout()} |
-	  {ok, State :: term(), hibernate} |
-	  {stop, Reason :: term()} |
-	  ignore.
 init([]) ->
-    process_flag(trap_exit, true),
-    {ok, #state{}}.
+    wx:new(),
+    Frame = wxFrame:new(),
+    {Frame, #state{}}.
+
+%%--------------------------------------------------------------------
+%% @private
+%% @doc
+%% Handling events
+%%
+%% @spec handle_event(wx{}, State) ->
+%%                                   {noreply, State} |
+%%                                   {noreply, State, Timeout} |
+%%                                   {stop, Reason, State}
+%% @end
+%%--------------------------------------------------------------------
+handle_event(#wx{}, State) ->
+    {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
 %% Handling call messages
+%%
+%% @spec handle_call(Request, From, State) ->
+%%                                   {reply, Reply, State} |
+%%                                   {reply, Reply, State, Timeout} |
+%%                                   {noreply, State} |
+%%                                   {noreply, State, Timeout} |
+%%                                   {stop, Reason, Reply, State} |
+%%                                   {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
--spec handle_call(Request :: term(), From :: {pid(), term()}, State :: term()) ->
-	  {reply, Reply :: term(), NewState :: term()} |
-	  {reply, Reply :: term(), NewState :: term(), Timeout :: timeout()} |
-	  {reply, Reply :: term(), NewState :: term(), hibernate} |
-	  {noreply, NewState :: term()} |
-	  {noreply, NewState :: term(), Timeout :: timeout()} |
-	  {noreply, NewState :: term(), hibernate} |
-	  {stop, Reason :: term(), Reply :: term(), NewState :: term()} |
-	  {stop, Reason :: term(), NewState :: term()}.
 handle_call(_Request, _From, State) ->
     Reply = ok,
     {reply, Reply, State}.
@@ -79,41 +91,39 @@ handle_call(_Request, _From, State) ->
 %% @private
 %% @doc
 %% Handling cast messages
+%%
+%% @spec handle_cast(Msg, State) -> {noreply, State} |
+%%                                  {noreply, State, Timeout} |
+%%                                  {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
--spec handle_cast(Request :: term(), State :: term()) ->
-	  {noreply, NewState :: term()} |
-	  {noreply, NewState :: term(), Timeout :: timeout()} |
-	  {noreply, NewState :: term(), hibernate} |
-	  {stop, Reason :: term(), NewState :: term()}.
-handle_cast(_Request, State) ->
+handle_cast(_Msg, State) ->
     {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
 %% Handling all non call/cast messages
+%%
+%% @spec handle_info(Info, State) -> {noreply, State} |
+%%                                   {noreply, State, Timeout} |
+%%                                   {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
--spec handle_info(Info :: timeout() | term(), State :: term()) ->
-	  {noreply, NewState :: term()} |
-	  {noreply, NewState :: term(), Timeout :: timeout()} |
-	  {noreply, NewState :: term(), hibernate} |
-	  {stop, Reason :: normal | term(), NewState :: term()}.
 handle_info(_Info, State) ->
     {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
 %% @doc
-%% This function is called by a gen_server when it is about to
+%% This function is called by a wx_object when it is about to
 %% terminate. It should be the opposite of Module:init/1 and do any
-%% necessary cleaning up. When it returns, the gen_server terminates
+%% necessary cleaning up. When it returns, the wx_object terminates
 %% with Reason. The return value is ignored.
+%%
+%% @spec terminate(Reason, State) -> void()
 %% @end
 %%--------------------------------------------------------------------
--spec terminate(Reason :: normal | shutdown | {shutdown, term()} | term(),
-		State :: term()) -> any().
 terminate(_Reason, _State) ->
     ok.
 
@@ -121,27 +131,12 @@ terminate(_Reason, _State) ->
 %% @private
 %% @doc
 %% Convert process state when code is changed
+%%
+%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}
 %% @end
 %%--------------------------------------------------------------------
--spec code_change(OldVsn :: term() | {down, term()},
-		  State :: term(),
-		  Extra :: term()) -> {ok, NewState :: term()} |
-	  {error, Reason :: term()}.
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
-
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% This function is called for changing the form and appearance
-%% of gen_server status when it is returned from sys:get_status/1,2
-%% or when it appears in termination error logs.
-%% @end
-%%--------------------------------------------------------------------
--spec format_status(Opt :: normal | terminate,
-		    Status :: list()) -> Status :: term().
-format_status(_Opt, Status) ->
-    Status.
 
 %%%===================================================================
 %%% Internal functions
