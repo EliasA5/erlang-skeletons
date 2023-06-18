@@ -83,9 +83,9 @@ Variables used are:
 
 `$company`               Defaults to $author if undefined
 
-`$fulldate`              Defaults to python's datetime.now()
+`$fulldate`              Defaults to lua os.date("%d %B %Y") (day Month year).
 
-`$year`                  Defaults to python's datetime.now().year
+`$year`                  Defaults to lua os.date("%Y")
 
 
 CONFIGURATION
