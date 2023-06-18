@@ -3,7 +3,7 @@ ABOUT
 
 Erlang generic templates for vim
 
-Based on [vim-erlang-skeletons](https://github.com/vim-erlang/vim-erlang-skeletons)
+Based on [vim-erlang-skeletons](https://github.com/vim-erlang/vim-erlang-skeletons) and rewritten purely in lua!
 
 INTRODUCTION
 ------------
@@ -14,10 +14,6 @@ get_event etc.
 The default templates are ripped out of emacs.
 
 You can customize this suite to your needs.
-
-This plugin works well with pathogen (https://github.com/tpope/vim-pathogen).
-Make sure you `call #pathogen:helptags()` to enjoy vim help pages for this
-plugin.
 
 INSTALLATION
 ------------
