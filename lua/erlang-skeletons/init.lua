@@ -30,7 +30,7 @@ M.LoadTemplate = function(tb)
 	_T.company = vim.g.erl_company
 
 	local name = vim.api.nvim_buf_get_name(0) or "untitled"
-	_T.basename = name:match("/([%w%c%d]+)%.?[%w%c%d]*$") or name
+	_T.basename = name:match("/([%w%c%d_]+)%.?[%w%c%d]*$") or name
 
 	local tpl_dir = tb.tpl_dir or vim.g.erl_tpl_dir
 	local tpl = tpl_dir .. tb.tpl_file
