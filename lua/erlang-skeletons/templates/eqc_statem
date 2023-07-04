@@ -45,34 +45,34 @@ cleanup() -> ok.
 %% EQC Util functions
 test() -> test(?NUM_TESTS).
 test(N) ->
-     true = eqc:quickcheck(eqc:num_tests(N, ?QC_OUT(?MODULE:prop_correct()))).
+  true = eqc:quickcheck(eqc:num_tests(N, ?QC_OUT(?MODULE:prop_correct()))).
 
 %% eqc_statem
 
 initial_state() ->
-    #state{}.
+  #state{}.
 
 command(#state{}) ->
-    oneof([
-        {call, ?MODULE, create_thing, []},
-        {call, ?MODULE, restart_thing, [id()]},
-        {call, ?MODULE, update_thing, [id()]},
-        {call, ?MODULE, destroy_thing, [id()]}]).
+  oneof([
+         {call, ?MODULE, create_thing, []},
+         {call, ?MODULE, restart_thing, [id()]},
+         {call, ?MODULE, update_thing, [id()]},
+         {call, ?MODULE, destroy_thing, [id()]}]).
 
 precondition(_State, {call, _, _, _}) ->
-    true.
+  true.
 
 postcondition(_State, {call, _, _, _}, _Result) ->
-    true.
+  true.
 
 next_state(State, _Value, {call, ?MODULE, create_thing, []}=Call) ->
-    error({unhandled_next_state, Call});
+  error({unhandled_next_state, Call});
 next_state(State, _Value, {call, ?MODULE, restart_thing, []}=Call) ->
-    error({unhandled_next_state, Call});
+  error({unhandled_next_state, Call});
 next_state(State, _Value, {call, ?MODULE, update_thing, [_]}=Call) ->
-    error({unhandled_next_state, Call});
+  error({unhandled_next_state, Call});
 next_state(State, _Value, {call, ?MODULE, destroy_thing, []}=Call) ->
-    error({unhandled_next_state, Call}).
+  error({unhandled_next_state, Call}).
 
 %% /eqc_statem
 
@@ -85,34 +85,34 @@ id() -> non_empty(list(oneof(lists:seq(32, 126)))).
 %% API
 
 create_thing() ->
-    error(unimplemented).
+  error(unimplemented).
 
 restart_thing(_Id) ->
-    error(unimplemented).
+  error(unimplemented).
 
 update_thing(_Id) ->
-    error(unimplemented).
+  error(unimplemented).
 
 destroy_thing(_Id) ->
-    error(unimplemented).
+  error(unimplemented).
 
 %% /API
 
 % Lovingly ripped off from https://github.com/basho/yokozuna/blob/f8a1724f1b9f0297d7801d79a6dfd37d8b74a1f3/test/yz_index_hashtree_eqc.erl#L442
 prop_correct() ->
-    ?SETUP(fun() -> setup(), fun() -> cleanup() end end,
-    ?FORALL(Cmds, commands(?MODULE, #state{}),
-            aggregate(command_names(Cmds),
-                      ?TRAPEXIT(begin
-                                    {H, S, Res} = run_commands(?MODULE, Cmds),
+  ?SETUP(fun() -> setup(), fun() -> cleanup() end end,
+         ?FORALL(Cmds, commands(?MODULE, #state{}),
+                 aggregate(command_names(Cmds),
+                           ?TRAPEXIT(begin
+                                       {H, S, Res} = run_commands(?MODULE, Cmds),
 
-                                    %% Some cleanup perhaps?
-                                    %% Persist the known-good states?
+                                       %% Some cleanup perhaps?
+                                       %% Persist the known-good states?
 
-                                    pretty_commands(?MODULE,
-                                                    Cmds,
-                                                    {H, S, Res},
-                                                    Res == ok)
-                                end)))).
+                                       pretty_commands(?MODULE,
+                                                       Cmds,
+                                                       {H, S, Res},
+                                                       Res == ok)
+                                     end)))).
 -endif.
 -endif.

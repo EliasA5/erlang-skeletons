@@ -12,7 +12,7 @@
 
 %% Application callbacks
 -export([start/2, start_phase/3, stop/1, prep_stop/1,
-	 config_change/3]).
+         config_change/3]).
 
 %%%===================================================================
 %%% Application callbacks
@@ -29,19 +29,19 @@
 %% @end
 %%--------------------------------------------------------------------
 -spec start(StartType :: normal |
-			 {takeover, Node :: node()} |
-			 {failover, Node :: node()},
-	    StartArgs :: term()) ->
-	  {ok, Pid :: pid()} |
-	  {ok, Pid :: pid(), State :: term()} |
-	  {error, Reason :: term()}.
+            {takeover, Node :: node()} |
+            {failover, Node :: node()},
+            StartArgs :: term()) ->
+  {ok, Pid :: pid()} |
+  {ok, Pid :: pid(), State :: term()} |
+  {error, Reason :: term()}.
 start(_StartType, _StartArgs) ->
-    case 'TopSupervisor':start_link() of
-	{ok, Pid} ->
-	    {ok, Pid};
-	Error ->
-	    Error
-    end.
+  case 'TopSupervisor':start_link() of
+    {ok, Pid} ->
+      {ok, Pid};
+    Error ->
+      Error
+  end.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -52,12 +52,12 @@ start(_StartType, _StartArgs) ->
 %% applications during startup.%% @end
 %%--------------------------------------------------------------------
 -spec start_phase(Phase :: atom(),
-		  StartType :: normal |
-			       {takeover, Node :: node()} |
-			       {failover, Node :: node()},
-		  PhaseArgs :: term()) -> ok | {error, Reason :: term()}.
+                  StartType :: normal |
+                  {takeover, Node :: node()} |
+                  {failover, Node :: node()},
+                  PhaseArgs :: term()) -> ok | {error, Reason :: term()}.
 start_phase(_Phase, _StartType, _PhaseArgs) ->
-    ok.
+  ok.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -69,7 +69,7 @@ start_phase(_Phase, _StartType, _PhaseArgs) ->
 %%--------------------------------------------------------------------
 -spec stop(State :: term()) -> any().
 stop(_State) ->
-    ok.
+  ok.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -80,7 +80,7 @@ stop(_State) ->
 %%--------------------------------------------------------------------
 -spec prep_stop(State :: term()) -> NewState :: term().
 prep_stop(State) ->
-    State.
+  State.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -90,10 +90,10 @@ prep_stop(State) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec config_change(Changed :: [{Par :: atom(), Val :: term()}],
-		    New :: [{Par :: atom(), Val :: term()}],
-		    Removed :: [Par :: atom()]) -> ok.
+                    New :: [{Par :: atom(), Val :: term()}],
+                    Removed :: [Par :: atom()]) -> ok.
 config_change(_Changed, _New, _Removed) ->
-    ok.
+  ok.
 
 %%%===================================================================
 %%% Internal functions

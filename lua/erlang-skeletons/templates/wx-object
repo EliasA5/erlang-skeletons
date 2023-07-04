@@ -17,7 +17,7 @@
 
 %% wx_object callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-	 handle_event/2, terminate/2, code_change/3]).
+         handle_event/2, terminate/2, code_change/3]).
 
 -record(state, {}).
 
@@ -33,7 +33,7 @@
 %% @end
 %%--------------------------------------------------------------------
 start_link() ->
-    wx_object:start_link(?MODULE, [], []).
+  wx_object:start_link(?MODULE, [], []).
 
 %%%===================================================================
 %%% wx_object callbacks
@@ -51,9 +51,9 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
-    wx:new(),
-    Frame = wxFrame:new(),
-    {Frame, #state{}}.
+  wx:new(),
+  Frame = wxFrame:new(),
+  {Frame, #state{}}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -67,7 +67,7 @@ init([]) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_event(#wx{}, State) ->
-    {noreply, State}.
+  {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -84,8 +84,8 @@ handle_event(#wx{}, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_call(_Request, _From, State) ->
-    Reply = ok,
-    {reply, Reply, State}.
+  Reply = ok,
+  {reply, Reply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -98,7 +98,7 @@ handle_call(_Request, _From, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_cast(_Msg, State) ->
-    {noreply, State}.
+  {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -111,7 +111,7 @@ handle_cast(_Msg, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_info(_Info, State) ->
-    {noreply, State}.
+  {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -125,7 +125,7 @@ handle_info(_Info, State) ->
 %% @end
 %%--------------------------------------------------------------------
 terminate(_Reason, _State) ->
-    ok.
+  ok.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -136,7 +136,7 @@ terminate(_Reason, _State) ->
 %% @end
 %%--------------------------------------------------------------------
 code_change(_OldVsn, State, _Extra) ->
-    {ok, State}.
+  {ok, State}.
 
 %%%===================================================================
 %%% Internal functions

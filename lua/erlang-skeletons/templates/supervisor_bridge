@@ -30,11 +30,11 @@
 %% @end
 %%--------------------------------------------------------------------
 -spec start_link() -> {ok, Pid :: pid()} |
-	  {error, {already_started, Pid :: pid()}} |
-	  {error, term()} |
-	  ignore.
+                      {error, {already_started, Pid :: pid()}} |
+                      {error, term()} |
+                      ignore.
 start_link() ->
-    supervisor_bridge:start_link({local, ?SERVER}, ?MODULE, []).
+  supervisor_bridge:start_link({local, ?SERVER}, ?MODULE, []).
 
 %%%===================================================================
 %%% supervisor_bridge callbacks
@@ -50,15 +50,15 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 -spec init(Args :: term()) -> {ok, Pid :: pid(), State :: term()} |
-	  {error, Error :: term()} |
-	  ignore.
+                              {error, Error :: term()} |
+                              ignore.
 init([]) ->
-    case 'AModule':start_link() of
-	{ok, Pid} ->
-	    {ok, Pid, #state{}};
-	Error ->
-	    Error
-    end.
+  case 'AModule':start_link() of
+    {ok, Pid} ->
+      {ok, Pid, #state{}};
+    Error ->
+      Error
+  end.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -71,8 +71,8 @@ init([]) ->
 %%--------------------------------------------------------------------
 -spec terminate(Reason :: shutdown | term(), State :: term()) -> any().
 terminate(_Reason, _State) ->
-    'AModule':stop(),
-    ok.
+  'AModule':stop(),
+  ok.
 
 %%%===================================================================
 %%% Internal functions

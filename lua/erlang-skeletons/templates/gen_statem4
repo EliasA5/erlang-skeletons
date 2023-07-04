@@ -34,11 +34,11 @@
 %% @end
 %%--------------------------------------------------------------------
 -spec start_link() ->
-	  {ok, Pid :: pid()} |
-	  ignore |
-	  {error, Error :: term()}.
+  {ok, Pid :: pid()} |
+  ignore |
+  {error, Error :: term()}.
 start_link() ->
-    gen_statem:start_link({local, ?SERVER}, ?MODULE, [], []).
+  gen_statem:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 %%%===================================================================
 %%% gen_statem callbacks
@@ -62,10 +62,10 @@ callback_mode() -> handle_event_function.
 %% @end
 %%--------------------------------------------------------------------
 -spec init(Args :: term()) ->
-	  gen_statem:init_result(term()).
+  gen_statem:init_result(term()).
 init([]) ->
-    process_flag(trap_exit, true),
-    {ok, state_name, #data{}}.
+  process_flag(trap_exit, true),
+  {ok, state_name, #data{}}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -74,17 +74,17 @@ init([]) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec handle_event('enter',
-		   OldState :: term(),
-		   State :: term(),
-		   Data :: term()) ->
-	  gen_statem:state_enter_result(term());
-		  (gen_statem:event_type(),
-		   Msg :: term(),
-		   State :: term(),
-		   Data :: term()) ->
-	  gen_statem:event_handler_result(term()).
+                   OldState :: term(),
+                   State :: term(),
+                   Data :: term()) ->
+  gen_statem:state_enter_result(term());
+                  (gen_statem:event_type(),
+                   Msg :: term(),
+                   State :: term(),
+                   Data :: term()) ->
+  gen_statem:event_handler_result(term()).
 handle_event({call,From}, _Msg, State, Data) ->
-    {next_state, State, Data, [{reply,From,ok}]}.
+  {next_state, State, Data, [{reply,From,ok}]}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -96,9 +96,9 @@ handle_event({call,From}, _Msg, State, Data) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec terminate(Reason :: term(), State :: term(), Data :: term()) ->
-	  any().
+  any().
 terminate(_Reason, _State, _Data) ->
-    void.
+  void.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -107,12 +107,12 @@ terminate(_Reason, _State, _Data) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec code_change(
-	OldVsn :: term() | {down,term()},
-	State :: term(), Data :: term(), Extra :: term()) ->
-	  {ok, NewState :: term(), NewData :: term()} |
-	  (Reason :: term()).
+        OldVsn :: term() | {down,term()},
+        State :: term(), Data :: term(), Extra :: term()) ->
+  {ok, NewState :: term(), NewData :: term()} |
+  (Reason :: term()).
 code_change(_OldVsn, State, Data, _Extra) ->
-    {ok, State, Data}.
+  {ok, State, Data}.
 
 %%%===================================================================
 %%% Internal functions

@@ -15,6 +15,8 @@ The default templates are ripped out of emacs.
 
 You can customize this suite to your needs.
 
+This branch uses 2 spaces instead of tabs for indentation in the templates.
+
 INSTALLATION
 ------------
 [folke/lazy.nvim](https://github.com/folke/lazy.nvim):
