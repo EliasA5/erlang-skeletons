@@ -21,11 +21,11 @@ INSTALLATION
 ------------
 [folke/lazy.nvim](https://github.com/folke/lazy.nvim):
 ```lua
-{'EliasA5/erlang-skeletons', config = function() require('erlang-skeletons').setup() end},
+{'EliasA5/erlang-skeletons', branch = 'spaces', config = function() require('erlang-skeletons').setup() end},
 ```
 [wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim):
 ```lua
-use 'EliasA5/erlang-skeletons',
+use {'EliasA5/erlang-skeletons', branch = 'spaces'},
 ```
 **Don't forget** to call `require('erlang-skeletons').setup()` to enable the plugin!
 
